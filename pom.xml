@@ -55,7 +55,7 @@
   <groupId>com.esprit.examen</groupId>
   <artifactId>GesF</artifactId>
   <version>1.0</version>
-</dependency
+		</dependency>
 	</dependencies>
 
 	<build>
