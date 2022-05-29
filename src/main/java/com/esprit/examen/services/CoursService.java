@@ -5,7 +5,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.esprit.examen.entities.Cours;
 import com.esprit.examen.entities.Session;
 import com.esprit.examen.repositories.CoursRepository;
@@ -13,11 +14,13 @@ import com.esprit.examen.repositories.SessionRepository;
 
 @Service
 public class CoursService implements ICoursService {
+	private static final Logger l = LogManager.getLogger(CoursService.class);
 
 	@Autowired
 	CoursRepository coursRepository;
 	@Override
 	public Long addCours(Cours cours) {
+		l.info("start add cours ");
 		coursRepository.save(cours);
 		return cours.getId();
 	}
