@@ -1,5 +1,7 @@
 package com.esprit.examen.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class SessionService implements ISessionService{
 	@Override
 	public void supprimerSession(Long sessionId) {
 		sessionRepository.deleteById(sessionId);
+	}
+	
+	@Override
+	public Optional<Session> getById(long id) {
+		return sessionRepository.findById(id);
 	}
 
 	@Override

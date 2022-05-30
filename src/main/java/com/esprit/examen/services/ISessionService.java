@@ -1,5 +1,7 @@
 package com.esprit.examen.services;
 
+import java.util.Optional;
+
 import com.esprit.examen.entities.Session;
 
 public interface ISessionService {
@@ -10,4 +12,6 @@ public interface ISessionService {
 	void supprimerSession(Long sessionId);
 	
 	void affecterFormateurASession (Long formateurId, Long sessionId);
+
+	Optional<Session> getById(long id);
 }

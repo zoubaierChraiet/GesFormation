@@ -10,8 +10,10 @@ import org.apache.logging.log4j.Logger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.Test;
+import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,17 +35,39 @@ public class SessionServiceTest {
 	@Autowired
     IFormateurService formateurService;
 	
+	private static final Logger l = LogManager.getLogger(SessionServiceTest.class);
+	
 	@Test
 	public void addSessionTest() {
-//		l.info("*************** Start add cours test");
-//        Cours cours = new Cours("cours devops", TypeCours.Informatique, "Devops");
-//
-//        Long id = coursService.addCours(cours);
-//        l.info("test  ajout  cours  id : " + id);
-        
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		Session newSession = new Session();
-//		newSession.se
+		l.info("Commencer addSession test");
+        Session newSession = new Session(2l,"description");
+        Long id = sessionService.addSession(newSession);
+        l.info("test ajout session id : " + id);
+        Assert.assertNotEquals(Optional.ofNullable(id), 0);
 	}
+	
+	@Test
+    public void UpdateSessionTest() {
+		l.info("Commencer updateSession test");
+		Session newSession = new Session(2l,"description");
+        Long id = sessionService.addSession(newSession);
+        newSession.setDescription("new description");
+        Long newId = sessionService.modifierSession(newSession);
+        Assert.assertNotEquals(Optional.ofNullable(newId), 0);
+        Assert.assertEquals(id,newId);
+    }
+	
+	@Test
+    public void DeleteSessionTest() {
+		l.info("Commencer deleteSession test");
+		Session newSession = new Session(2l,"description");
+        Long  id = sessionService.addSession(newSession);
+        sessionService.supprimerSession(id);
+        Optional<Session> op = sessionService.getById(id);
+        if (op.isPresent())
+            l.error("test echec du suppression id = "+ id);
+        Assert.assertFalse(op.isPresent());
+
+    }
 	
 }
